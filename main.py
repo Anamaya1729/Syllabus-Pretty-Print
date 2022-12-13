@@ -1,5 +1,4 @@
 import re
-import sys
 from fpdf import FPDF
 
 def syllabus_input():
@@ -55,7 +54,7 @@ def pretty_print(unit_wise_syllabus):
                 if k != "" :
                     print(f"\t* {k}", end="\n")
 
-def pdf_print(unit_wise_syllabus):
+def pdf_print(unit_wise_syllabus, name = "syllabus.pdf"):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -65,7 +64,7 @@ def pdf_print(unit_wise_syllabus):
             for k in j:
                 if k != "" :
                     pdf.cell(200, 10, txt=f"\t* {k}", ln=1, align="L")
-    pdf.output("syllabus.pdf")
+    pdf.output(name)
 
 
 def main():
@@ -75,7 +74,8 @@ def main():
     unit_wise_syllabus = syllabus_unit_wise(units, syllabus)
     unit_wise_syllabus = processing_syllabus(unit_wise_syllabus)
     pretty_print(unit_wise_syllabus)
-    pdf_print(unit_wise_syllabus)
+    output = input("Enter the name of output file: ")
+    pdf_print(unit_wise_syllabus, output)
 
 if __name__ == "__main__":
     main()
