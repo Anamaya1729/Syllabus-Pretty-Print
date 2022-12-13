@@ -1,9 +1,10 @@
 import re
+import sys
+from fpdf import FPDF
 
 def syllabus_input():
-    # subject = input("Enter the name of syllabus file: ")
-    # syllabus = open(subject, "r")
-    syllabus = open("web_mining.txt", "r")
+    subject = input("Enter the name of syllabus file: ")
+    syllabus = open(subject, "r")
     syllabus = syllabus.read()
     syllabus = syllabus.split("\n")
     return syllabus
@@ -54,6 +55,19 @@ def pretty_print(unit_wise_syllabus):
                 if k != "" :
                     print(f"\t* {k}", end="\n")
 
+def pdf_print(unit_wise_syllabus):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    for i in unit_wise_syllabus:
+        pdf.cell(200, 10, txt=i, ln=1, align="C")
+        for j in unit_wise_syllabus[i]:
+            for k in j:
+                if k != "" :
+                    pdf.cell(200, 10, txt=f"\t* {k}", ln=1, align="L")
+    pdf.output("syllabus.pdf")
+
+
 def main():
     syllabus = syllabus_input()
     # print(syllabus)
@@ -61,6 +75,7 @@ def main():
     unit_wise_syllabus = syllabus_unit_wise(units, syllabus)
     unit_wise_syllabus = processing_syllabus(unit_wise_syllabus)
     pretty_print(unit_wise_syllabus)
+    pdf_print(unit_wise_syllabus)
 
 if __name__ == "__main__":
     main()
