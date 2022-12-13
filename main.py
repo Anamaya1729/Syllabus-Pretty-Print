@@ -57,7 +57,7 @@ def pretty_print(unit_wise_syllabus):
 def pdf_print(unit_wise_syllabus, name = "syllabus.pdf"):
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
+    pdf.set_font("Baskerville Old Face", size=16)
     for i in unit_wise_syllabus:
         pdf.cell(200, 10, txt=i, ln=1, align="C")
         for j in unit_wise_syllabus[i]:
